@@ -34,7 +34,7 @@ export default defineConfig({
     tsconfigPaths(),
   ],
   ssr: {
-    noExternal: ['react-i18next', /^@mui\//],
+    noExternal: ['react-i18next', '@mui/*'],
     // noExternal: ["react-i18next", '@mui/icons-material'],
     // noExternal: ['@mui/icons-material', /^@mui\//],
   },

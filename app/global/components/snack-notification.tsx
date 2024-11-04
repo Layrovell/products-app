@@ -1,5 +1,5 @@
 import React from 'react';
-import {SnackbarContent, CustomContentProps, closeSnackbar} from 'notistack';
+import {SnackbarContent, closeSnackbar, VariantType} from 'notistack';
 
 import {AlertProps} from '@mui/material';
 
@@ -18,17 +18,23 @@ declare module 'notistack' {
   }
 }
 
-interface SnackNotificationProps extends NotificationProps {
+interface CustomSnackNotificationProps extends NotificationProps {
   noClose?: boolean;
   alertProps?: AlertProps;
+  notistackVariant: VariantType;
+  message: string;
 }
 
-//
+type SnackNotificationProps = {
+  color?: AlertProps['color'];
+  severity?: AlertProps['severity'];
+  noClose?: boolean;
+  alertProps?: AlertProps;
+  messages?: React.ReactNode | React.ReactNode[];
+  heading?: React.ReactNode;
+};
 
-export const SnackNotification = React.forwardRef<
-  HTMLDivElement,
-  SnackNotificationProps & CustomContentProps
->(
+export const SnackNotification = React.forwardRef<HTMLDivElement, CustomSnackNotificationProps>(
   (
     {heading, headingProps, message, messages, messagesProps, noClose, alertProps, ...props},
     ref,
@@ -36,7 +42,7 @@ export const SnackNotification = React.forwardRef<
     let color: AlertProps['color'];
     let severity: AlertProps['severity'];
 
-    switch (props.variant) {
+    switch (props.notistackVariant) {
       case 'success':
         color = 'success';
         severity = 'success';
